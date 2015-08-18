@@ -1,0 +1,89 @@
+From jh at cyrus.de  Fri Jul 14 16:06:19 2006
+From: jh at cyrus.de (=?ISO-8859-1?Q?J=FCrgen?= Hamel)
+Date: Fri, 14 Jul 2006 16:06:19 +0200
+Subject: [Cuon-devel] First steps 1
+Message-ID: <1152885979.10797.34.camel@localhost>
+
+Hi,
+This are the first steps to understand C.U.O.N.:
+
+To program a Top-Modul in C.U.O.N. is not complicated.
+Here we use the address-modul for example .
+A module to connect with xmlrpc to the SQL-Database inherits from 
+cuon-->Databases-->SingleData, so the first modul is 
+SingleAddress.py:
+
+from cuon.Databases.SingleData import SingleData
+import logging
+import threading
+
+class SingleAddress(SingleData):
+
+    
+    def __init__(self, allTables):
+
+        SingleData.__init__(self)
+        self.sNameOfTable =  "address"
+        self.xmlTableDef = 0
+        self.loadTable(allTables)
+
+Thats all to connect to table address
+
+
+All the main moduls are inherits from windows or chooseWindows.
+addresses.py:
+ class addresswindow(chooseWindows):
+
+    
+    def __init__(self, allTables):
+
+        chooseWindows.__init__(self)
+        self.singleAddress = SingleAddress.SingleAddress(allTables)
+        #load the GUI
+        self.loadGlade('address.xml')
+        # set the entries
+        self.EntriesAddresses = 'addresses.xml'          
+        
+
+Thats all to implement basic-function to a modul.
+
+bye
+J?rgen
+
+-- 
+Cyrus-Computer GmbH Linux Server Support J?rgen Hamel
+Cuon - Warewirtschaft mit Linux  http://www.cuon.org
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 191 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/cuon-devel/attachments/20060714/b5c5e467/attachment.pgp>
+
+From jh at cyrus.de  Sat Jul 22 16:21:15 2006
+From: jh at cyrus.de (=?ISO-8859-1?Q?J=FCrgen?= Hamel)
+Date: Sat, 22 Jul 2006 16:21:15 +0200
+Subject: [Cuon-devel] Bug in create sequences, bibilio-glade2
+Message-ID: <1153578075.31917.6.camel@localhost>
+
+A bug in the file database.py is eliminated. The create of sequences
+failed, so update to the new version and start dbcheck. Please remember
+to start dbcheck also if you are created new clients.
+
+A litte bug was in the biblio.glade2 file. The menu-item are New...,
+Edit..., Save... and not new..., edit..., save....
+
+Have a nice day
+JH
+-- 
+Cyrus-Computer GmbH Linux Server Support J?rgen Hamel
+Cuon - Warenwirtschaft mit Linux  http://www.cuon.org
+-------------- next part --------------
+A non-text attachment was scrubbed...
+Name: signature.asc
+Type: application/pgp-signature
+Size: 191 bytes
+Desc: Dies ist ein digital signierter Nachrichtenteil
+URL: <https://lists.berlios.de/pipermail/cuon-devel/attachments/20060722/0d73590c/attachment.pgp>
+
